@@ -25,8 +25,28 @@ def get_main_menu():
 # Обработчики
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    # --- НАЧАЛО ДОБАВЛЕННОГО КОДА ДЛЯ СБОРА ДАННЫХ ---
+    user = message.from_user
+    user_id = user.id
+    first_name = user.first_name
+    last_name = user.last_name or "Не указана"
+    username = f"@{user.username}" if user.username else "Нет юзернейма"
+    language = user.language_code or "Неизвестен"
+    # getattr используется на случай, если библиотека старой версии и не знает про is_premium
+    is_premium = getattr(user, 'is_premium', False) 
+    
+    # Выводим информацию в консоль (логи Render)
+    print(f"--- Новый пользователь ---")
+    print(f"ID: {user_id}")
+    print(f"Имя: {first_name} {last_name}")
+    print(f"Юзернейм: {username}")
+    print(f"Язык: {language}")
+    print(f"Premium: {is_premium}")
+    # --- КОНЕЦ ДОБАВЛЕННОГО КОДА ---
+
+    # Формируем приветственное сообщение с обращением по имени
     welcome_text = (
-        "Привет! Это фемботик моргана:3 Тут ты можешь заказать или посмотреть "
+        f"Привет, {first_name}! Это фемботик моргана:3 Тут ты можешь заказать или посмотреть "
         "цены на услуги моргана^^ Ня~\n\n"
         "Выбирай кнопочку ниже, чтобы посмотреть прайс!"
     )
