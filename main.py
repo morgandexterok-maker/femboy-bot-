@@ -116,4 +116,4 @@ def keep_alive():
 
 if __name__ == '__main__':
     keep_alive()
-    bot.polling(none_stop=True)
+    bot.infinity_polling(timeout=60, long_polling_timeout=60)
