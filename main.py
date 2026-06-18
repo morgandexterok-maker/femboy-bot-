@@ -67,8 +67,16 @@ def handle_query(call):
 
     if call.data == "back_to_menu":
         welcome_text = ("Привет! Это фемботик моргана:3 Выбирай вариант услуги ниже:")
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                              text=welcome_text, reply_markup=get_main_menu())
+
+        # Проверяем, есть ли в сообщении фото
+        if call.message.content_type == 'photo':
+            # Если это фото, удаляем его и отправляем меню новым сообщением
+            bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+            bot.send_message(chat_id=call.message.chat.id, text=welcome_text, reply_markup=get_main_menu())
+        else:
+            # Если это обычный текст, просто редактируем его
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                  text=welcome_text, reply_markup=get_main_menu())
         return
 
     # Логика услуг
