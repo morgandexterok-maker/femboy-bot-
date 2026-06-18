@@ -6,7 +6,7 @@ from flask import Flask
 from threading import Thread
 
 # 1. Инициализация
-TOKEN = '8971183383:AAEOuF4d9VN2QyygyxbZlCByys_f_BfBmz8'
+TOKEN = '8971183383:AAHTqHDdl2rHbXCbmvZI9-lzR7JwFSvB5-g'
 bot = telebot.TeleBot(TOKEN)
 bot.remove_webhook()
 
